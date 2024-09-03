@@ -2,7 +2,7 @@
 //  MCTestUITestsLaunchTests.swift
 //  MCTestUITests
 //
-//  Created by Jorge Calderon on 2/9/24.
+//  Created by Jorge Minor Calderon B. on 2/9/24.
 //
 
 import XCTest

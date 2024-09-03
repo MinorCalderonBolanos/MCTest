@@ -2,31 +2,30 @@
 //  MCTestApp.swift
 //  MCTest
 //
-//  Created by Jorge Calderon on 2/9/24.
+//  Created by Jorge Minor Calderon B. on 2/9/24.
 //
 
 import SwiftUI
-import SwiftData
 
 @main
 struct MCTestApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
+    @State private var showSplashScreen = true
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if showSplashScreen {
+                SplashScreenView()
+                    .onAppear {
+                        // Simular un tiempo de splash screen
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            withAnimation {
+                                showSplashScreen = false
+                            }
+                        }
+                    }
+            } else {
+                CharacterListView(viewModel: DependencyInjector.shared.provideCharacterListViewModel())
+            }
         }
-        .modelContainer(sharedModelContainer)
     }
 }
